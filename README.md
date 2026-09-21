@@ -85,7 +85,7 @@ Configure your MCP client to run:
 python3 scripts/server.py
 ```
 
-See [Google OAuth Setup](docs/setup-google-oauth.md) and [MCP Client Configuration](docs/mcp-client-config.md) for detailed steps.
+See [Google OAuth Setup](docs/setup-google-oauth.md) and [MCP Client Configuration](docs/mcp-client-config.md) for detailed steps, including a macOS-specific walkthrough for connecting to Claude Desktop.
 
 ## MCP configuration
 
