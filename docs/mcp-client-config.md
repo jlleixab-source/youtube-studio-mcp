@@ -43,14 +43,13 @@ Relative credential paths are resolved against the repository root, so no `cwd` 
 
 1. Install uv (PowerShell): `powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"`
 2. Clone the repo, e.g. to `C:\Users\<you>\code\youtube-studio-mcp`, and put `client_secret.json` in its `secrets\` folder.
-3. Register it for Claude Code (user scope):
+3. Register it for Claude Code (user scope). PowerShell drops the bare `--` separator before it reaches `claude`, so run the command through `cmd /c`:
 
    ```powershell
-   claude mcp add youtube-studio --scope user `
-     -e YOUTUBE_CLIENT_SECRETS=C:\Users\<you>\code\youtube-studio-mcp\secrets\client_secret.json `
-     -e YOUTUBE_TOKEN_FILE=C:\Users\<you>\code\youtube-studio-mcp\secrets\token.json `
-     -- uv run --no-project python C:\Users\<you>\code\youtube-studio-mcp\scripts\server.py
+   cmd /c "claude mcp add youtube-studio --scope user -e YOUTUBE_CLIENT_SECRETS=C:\Users\<you>\code\youtube-studio-mcp\secrets\client_secret.json -e YOUTUBE_TOKEN_FILE=C:\Users\<you>\code\youtube-studio-mcp\secrets\token.json -- uv run --no-project python C:\Users\<you>\code\youtube-studio-mcp\scripts\server.py"
    ```
+
+   Without `cmd /c`, the command fails with `error: unknown option '--no-project'`.
 
    Or the equivalent JSON under `mcpServers` (in `%USERPROFILE%\.claude.json` or `%APPDATA%\Claude\claude_desktop_config.json`):
 
