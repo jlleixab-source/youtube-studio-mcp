@@ -65,7 +65,7 @@ Relative credential paths are resolved against the repository root, so no `cwd` 
    }
    ```
 
-   If `uv` is not on the PATH seen by the client, use its full path (`where.exe uv`, usually `C:\\Users\\<you>\\.local\\bin\\uv.exe`).
+   If `uv` is not on the PATH seen by the client, use its full path (`where.exe uv`, usually `C:\Users\<you>\.local\bin\uv.exe`).
 
 4. Check it with `claude mcp list` (should show `youtube-studio ... Connected`), then run `youtube_auth_status` / `youtube_start_auth`.
 
