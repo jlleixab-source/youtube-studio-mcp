@@ -36,6 +36,39 @@ Use this server with any MCP client that supports stdio servers.
 
 `python3` must resolve on your `PATH` (check with `which python3`); if Claude Desktop can't find it, use the absolute path from `which python3` instead of `python3` in the `command` field.
 
+## Claude Code / Claude Desktop (Windows, with uv)
+
+The server has no third-party dependencies, so `uv` only has to provide a Python interpreter.
+Relative credential paths are resolved against the repository root, so no `cwd` is needed.
+
+1. Install uv (PowerShell): `powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"`
+2. Clone the repo, e.g. to `C:\Users\<you>\code\youtube-studio-mcp`, and put `client_secret.json` in its `secrets\` folder.
+3. Register it for Claude Code (user scope):
+
+   ```powershell
+   claude mcp add youtube-studio --scope user `
+     -e YOUTUBE_CLIENT_SECRETS=C:\Users\<you>\code\youtube-studio-mcp\secrets\client_secret.json `
+     -e YOUTUBE_TOKEN_FILE=C:\Users\<you>\code\youtube-studio-mcp\secrets\token.json `
+     -- uv run --no-project python C:\Users\<you>\code\youtube-studio-mcp\scripts\server.py
+   ```
+
+   Or the equivalent JSON under `mcpServers` (in `%USERPROFILE%\.claude.json` or `%APPDATA%\Claude\claude_desktop_config.json`):
+
+   ```json
+   "youtube-studio": {
+     "command": "uv",
+     "args": ["run", "--no-project", "python", "C:\\Users\\<you>\\code\\youtube-studio-mcp\\scripts\\server.py"],
+     "env": {
+       "YOUTUBE_CLIENT_SECRETS": "C:\\Users\\<you>\\code\\youtube-studio-mcp\\secrets\\client_secret.json",
+       "YOUTUBE_TOKEN_FILE": "C:\\Users\\<you>\\code\\youtube-studio-mcp\\secrets\\token.json"
+     }
+   }
+   ```
+
+   If `uv` is not on the PATH seen by the client, use its full path (`where.exe uv`, usually `C:\\Users\\<you>\\.local\\bin\\uv.exe`).
+
+4. Check it with `claude mcp list` (should show `youtube-studio ... Connected`), then run `youtube_auth_status` / `youtube_start_auth`.
+
 ## Generic MCP config
 
 From the repository root:
